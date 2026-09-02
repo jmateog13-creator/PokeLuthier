@@ -9,6 +9,7 @@ import { findTrainer, GYM_LEADERS } from '../data/trainers.js';
 import { MEDALS } from '../data/medals.js';
 import { MAP_LEVELS_TOTAL, nivellEsGym, nivellEsCartell, nivellEsAC, nivellEsCampio, gymPerLevel, zonaPerLevel, getZona } from '../engine/map-gen.js';
 import { renderHUD } from './hud.js';
+import { iconHtml } from './views.js';
 
 // (els avatars dels entrenadors es prenen directament del seu objecte trainer per
 // garantir que l'emoji del mapa = l'emoji del combat)
@@ -94,7 +95,7 @@ function renderZoneHeader(zona) {
   let el = document.getElementById('zone-header');
   if (!el) return;
   el.innerHTML = `
-    <span class="zone-header-emoji">${zona.emoji}</span>
+    <span class="zone-header-emoji">${iconHtml(zona)}</span>
     <span class="zone-header-name">${zona.nom}</span>
     <span class="zone-header-meta">Zona ${zona.id}/6</span>
   `;
@@ -124,27 +125,27 @@ function classeNode(t) {
 
 function iconaNode(node, lvl) {
   if (node.type === 'combat') {
-    // L'emoji del trainer (mateix que apareixerà al combat)
+    // La icona del trainer (mateixa que apareixerà al combat)
     const t = findTrainer(node.trainer);
-    return t ? t.emoji : '👤';
+    return t ? iconHtml(t) : '';
   }
   if (node.type === 'botiga')         return '🏪';
   if (node.type === 'event')          return '❔';
-  if (node.type === 'centreReps')     return '🏥';
-  if (node.type === 'instSalvatge')   return '🪈';
-  if (node.type === 'cofre')          return '💎';
-  if (node.type === 'mestreVagabund') return '🧙‍♂️';
+  if (node.type === 'centreReps')     return '<img class="inst-icon-img" src="assets/mapa/node_curacio.png" alt="">';
+  if (node.type === 'instSalvatge')   return '🌿';
+  if (node.type === 'cofre')          return '<img class="inst-icon-img" src="assets/mapa/node_cofre.png" alt="">';
+  if (node.type === 'mestreVagabund') return '<img class="inst-icon-img" src="assets/mapa/node_mestre.png" alt="">';
   if (node.type === 'cartell')        return '📜';
   if (node.type === 'gym') {
     const t = findTrainer(node.trainer);
-    return t ? t.emoji : '🏆';
+    return t ? iconHtml(t) : '';
   }
   if (node.type === 'eliteFour') {
     const t = findTrainer(node.trainer);
-    return t ? t.emoji : '👑';
+    return t ? iconHtml(t) : '';
   }
-  if (node.type === 'champion')       return '🎼';
-  return '·';
+  if (node.type === 'champion')       return '';
+  return '';
 }
 
 function etiquetaNode(node) {

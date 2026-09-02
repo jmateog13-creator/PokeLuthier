@@ -10,7 +10,7 @@ import {
   comprarCuraParcial, comprarCuraTotal, comprarReparar,
   ofertarReclutament, reclutarInstrument
 } from '../engine/shop.js';
-import { showView, setText } from './views.js';
+import { showView, setText, iconHtml } from './views.js';
 import { toast } from './toast.js';
 import { renderHUD } from './hud.js';
 
@@ -32,18 +32,18 @@ function renderBotiga() {
   const p = CONFIG.preus;
   const items = [];
   items.push({
-    emoji:'💊', nom:'Cura parcial',
+    nom:'Cura parcial',
     desc:'Restaura 50% HP a un instrument viu.', preu:p.curaParcial,
     action:() => triarInstrumentPerCurar('parcial', p.curaParcial)
   });
   items.push({
-    emoji:'✨', nom:'Cura total',
+    nom:'Cura total',
     desc:'Restaura el 100% HP a un instrument viu.', preu:p.curaTotal,
     action:() => triarInstrumentPerCurar('total', p.curaTotal)
   });
   if (GameState.team.length < CONFIG.equipMaxim) {
     items.push({
-      emoji:'🎼', nom:'Reclutar',
+      nom:'Reclutar',
       desc:'Tria entre 3 instruments aleatoris.', preu:p.reclutar,
       action:() => mostrarReclutament()
     });
@@ -51,7 +51,7 @@ function renderBotiga() {
   const teTrencats = GameState.team.some(t => t.hp <= 0);
   if (teTrencats) {
     items.push({
-      emoji:'🔧', nom:'Reparació',
+      nom:'Reparació',
       desc:'Repara un instrument trencat (cara però possible).', preu:p.reparar,
       action:() => triarInstrumentPerReparar()
     });
@@ -61,7 +61,6 @@ function renderBotiga() {
     const div = document.createElement('div');
     div.className = 'shop-item';
     div.innerHTML = `
-      <div class="shop-item-emoji">${it.emoji}</div>
       <div class="shop-item-info">
         <div class="shop-item-name">${it.nom}</div>
         <div class="shop-item-desc">${it.desc}</div>
@@ -113,7 +112,7 @@ function mostrarReclutament() {
     const div = document.createElement('div');
     div.className = 'pick-opt';
     div.innerHTML = `
-      <div class="pick-emoji">${inst.emoji}</div>
+      <div class="pick-emoji">${iconHtml(inst)}</div>
       <div class="pick-name">${inst.nom}</div>
       <div class="pick-stats">HP ${inst.hpMax}<br>Atc ${inst.danys[0]}</div>`;
     div.addEventListener('click', () => {
@@ -143,7 +142,7 @@ function mostrarModalSeleccio(titol, llista, onPick) {
     const div = document.createElement('div');
     div.className = 'pick-opt';
     div.innerHTML = `
-      <div class="pick-emoji">${inst.emoji}</div>
+      <div class="pick-emoji">${iconHtml(inst)}</div>
       <div class="pick-name">${inst.nom}</div>
       <div class="pick-stats">${t.hp}/${t.hpMax}</div>`;
     div.addEventListener('click', () => { document.body.removeChild(modal); onPick(t); });

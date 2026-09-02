@@ -8,7 +8,7 @@ import { ZONES, estatZonaPerJugador } from '../engine/map-gen.js';
 import { MEDALS } from '../data/medals.js';
 import { BIOMES } from '../data/biomes.js';
 import { findTrainer } from '../data/trainers.js';
-import { showView } from './views.js';
+import { showView, iconHtml } from './views.js';
 
 export function obrirMapaMon() {
   showView('worldmap');
@@ -19,7 +19,7 @@ export function obrirMapaMon() {
   const header = document.createElement('div');
   header.className = 'worldmap-header';
   header.innerHTML = `
-    <h2 class="worldmap-title">🗺 Camí del Conservatori</h2>
+    <h2 class="worldmap-title">Camí del Conservatori</h2>
     <p class="worldmap-sub">Les 6 zones del teu viatge cap a Mestre Luthier</p>
     <div class="worldmap-prog">Medalles: <strong>${GameState.medalles.length}/5</strong></div>
   `;
@@ -44,9 +44,9 @@ export function obrirMapaMon() {
     card.innerHTML = `
       <div class="worldmap-card-bg" style="background:${bioma ? bioma.grass : '#888'}"></div>
       <div class="worldmap-card-num">${z.id}</div>
-      <div class="worldmap-card-emoji">${z.emoji}</div>
+      <div class="worldmap-card-emoji">${iconHtml(z)}</div>
       <div class="worldmap-card-name">${z.nom}</div>
-      ${gym ? `<div class="worldmap-card-gym">${gym.emoji} ${gym.nom}</div>` : ''}
+      ${gym ? `<div class="worldmap-card-gym">${iconHtml(gym)} ${gym.nom}</div>` : ''}
       ${guanyadaIcon ? `<div class="worldmap-card-status">${guanyadaIcon}</div>` : ''}
       <div class="worldmap-card-state">${stateLabel(estatFinal)}</div>
     `;
@@ -70,7 +70,7 @@ export function obrirMapaMon() {
 }
 
 function stateLabel(estat) {
-  if (estat === 'completed') return '✅ Superada';
-  if (estat === 'current')   return '📍 Estàs aquí';
-  return '🔒 Bloquejada';
+  if (estat === 'completed') return 'Superada';
+  if (estat === 'current')   return 'Estàs aquí';
+  return 'Bloquejada';
 }

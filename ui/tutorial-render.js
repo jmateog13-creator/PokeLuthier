@@ -31,7 +31,6 @@ function renderTutorial() {
   const total = TUTORIAL.length;
   const pas = TUTORIAL[tutIdx];
   setText('tut-progress', `Pas ${tutIdx + 1} de ${total}`);
-  setText('tut-emoji', pas.emoji);
   setText('tut-titol', pas.titol);
   setText('tut-text', pas.text);
 
@@ -70,7 +69,16 @@ function renderDemo(pas) {
 
   switch (pas.demo) {
     case 'intro':
-      cont.innerHTML = `<div class="demo-intro-row">🪈 🎻 🎺 🎷 🥁 🎹 🎸 🪗 🎵 🔔</div>`;
+      cont.innerHTML = `<div class="demo-intro-row">
+        <img class="inst-icon-img" src="assets/instruments_landing/flauta.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/violi.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/trompeta.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/saxofon.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/tambor.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/piano.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/guitarra_electrica.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/acordio.png" alt="">
+      </div>`;
       tutPasCompletat();
       break;
 
@@ -95,7 +103,7 @@ function renderDemo(pas) {
       break;
 
     case 'final':
-      cont.innerHTML = `<div class="demo-final">🎼</div><div style="font-family:var(--font-pixel);font-size:0.7rem;color:var(--red);">EL DIRECTOR D'ORQUESTRA</div>`;
+      cont.innerHTML = `<div class="demo-final"><img class="inst-icon-img" src="assets/entrenadors/director_orquestra.png" alt=""></div><div style="font-family:var(--font-pixel);font-size:0.7rem;color:var(--red);">EL DIRECTOR D'ORQUESTRA</div>`;
       tutPasCompletat();
       break;
 
@@ -107,15 +115,15 @@ function renderDemo(pas) {
 function renderTeamHpDemo(cont) {
   cont.innerHTML = `
     <div class="demo-team-card">
-      <div class="demo-team-emoji">🪈</div>
+      <div class="demo-team-emoji"><img class="inst-icon-img" src="assets/criatures/flauta.png" alt=""></div>
       <div class="demo-team-info">
         <div class="demo-team-name">Flauta Dolça · Lv1</div>
         <div class="demo-hp-bar"><div class="demo-hp-fill" id="demo-hp"></div></div>
       </div>
     </div>
     <div class="demo-buttons-row">
-      <button class="poke-btn poke-btn-small" id="demo-hit">⚔️ ATACAR</button>
-      <button class="poke-btn poke-btn-small" id="demo-heal">💊 CURAR</button>
+      <button class="poke-btn poke-btn-small" id="demo-hit">ATACAR</button>
+      <button class="poke-btn poke-btn-small" id="demo-heal">CURAR</button>
     </div>
     <p class="demo-hint">Prova els dos botons!</p>`;
   let demoHp = 100;
@@ -141,11 +149,11 @@ function renderMiniMapDemo(cont) {
   cont.innerHTML = `
     <div class="demo-mini-map">
       <div class="demo-mini-row">
-        <div class="demo-mini-node available" data-tipus="combat">🧑‍🎤</div>
-        <div class="demo-mini-node available" data-tipus="botiga">🏪</div>
-        <div class="demo-mini-node available" data-tipus="event">❔</div>
+        <div class="demo-mini-node available" data-tipus="combat" style="font-size:0.5rem">Batalla</div>
+        <div class="demo-mini-node available" data-tipus="botiga" style="font-size:0.5rem">Botiga</div>
+        <div class="demo-mini-node available" data-tipus="event" style="font-size:0.5rem">Esdev.</div>
       </div>
-      <div style="font-family:var(--font-vt);font-size:0.95rem;color:var(--ink);">📍 Estàs aquí</div>
+      <div style="font-family:var(--font-vt);font-size:0.95rem;color:var(--ink);">Estàs aquí</div>
     </div>
     <p class="demo-hint">Toca un dels 3 nodes!</p>`;
   cont.querySelectorAll('.demo-mini-node').forEach(n => {
@@ -163,7 +171,7 @@ function renderAttackPickDemo(cont) {
   cont.innerHTML = `
     <div class="demo-attacks">
       <button class="demo-attack-btn"><span>Bufada Suau</span><span class="att-dany">18 dany</span></button>
-      <button class="demo-attack-btn"><span>Aire Polifònic</span><span class="att-dany">🔒 Lv3</span></button>
+      <button class="demo-attack-btn"><span>Aire Polifònic</span><span class="att-dany">Lv3</span></button>
     </div>
     <p class="demo-hint">Toca un atac per provar!</p>`;
   cont.querySelectorAll('.demo-attack-btn').forEach((b, i) => {
@@ -209,9 +217,9 @@ function renderWildEncounterDemo(cont) {
     <div class="demo-wild">
       <div class="demo-wild-title">Has trobat instruments salvatges!</div>
       <div class="demo-wild-options">
-        <div class="demo-wild-opt" data-inst="violi"><div>🎻</div><div>Violí</div></div>
-        <div class="demo-wild-opt" data-inst="trompeta"><div>🎺</div><div>Trompeta</div></div>
-        <div class="demo-wild-opt" data-inst="piano"><div>🎹</div><div>Piano</div></div>
+        <div class="demo-wild-opt" data-inst="violi"><div><img class="inst-icon-img" src="assets/criatures/violi.png" alt=""></div><div>Violí</div></div>
+        <div class="demo-wild-opt" data-inst="trompeta"><div><img class="inst-icon-img" src="assets/criatures/trompeta.png" alt=""></div><div>Trompeta</div></div>
+        <div class="demo-wild-opt" data-inst="piano"><div><img class="inst-icon-img" src="assets/criatures/piano.png" alt=""></div><div>Piano</div></div>
       </div>
     </div>
     <p class="demo-hint">Tria un instrument per capturar!</p>`;

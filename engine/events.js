@@ -15,7 +15,7 @@ export function resoldreEfecte(efecte) {
     return { ok:true, msg:`+${efecte.valor} ♪` };
   }
   if (efecte.tipus === 'aposta') {
-    if (Math.random() < 0.5) { GameState.or += 60; return { ok:true, msg:'✨ Sort! +60 ♪' }; }
+    if (Math.random() < 0.5) { GameState.or += 60; return { ok:true, msg:'Sort! +60 ♪' }; }
     const perdua = Math.min(20, GameState.or);
     GameState.or -= perdua;
     return { ok:true, msg:`Una trampa! -${perdua} ♪` };

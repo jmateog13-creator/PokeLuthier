@@ -1,0 +1,5 @@
+Model: recraft_v4_1 (standard), 1:1
+Estilo base (repetido en cada hoja/fix): chibi pocket-monster, cuerpo = instrument real, cara obligatoria (ulls rodons negres, galtes roses, somriure), bracets/cametes curtes, croma pla (verd #00FF00 o blau #0047FF si l'instrument és verd/turquesa).
+Paleta per familia: Corda=terracota/taronja, Vent=daurat/ambre viu, Percussió+Idiòfons+Electrò=teal/violeta viu, Veu=4 colors joia (rosa,ambre,teal,violeta).
+5 hojas base (4x4,4x4,4x4,2x2,3x3) + 3 parches de arreglo de caras (2x2 guitarres/arpa/banjo, 1 sola guitarra elèctrica, 2x 3x2 vent+percussió, 1 sola campanes tubulars) = 9 generacions, 11.25cr total.
+Recorte: chroma_key.py --grid NxM --key green|blue --largest

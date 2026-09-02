@@ -7,7 +7,7 @@ import { GameState, playerActiu } from '../engine/state.js';
 import { CONFIG } from '../data/config.js';
 import { INSTRUMENTS } from '../data/instruments.js';
 import { findTrainer } from '../data/trainers.js';
-import { setText, showView } from './views.js';
+import { setText, setIcon, showView, iconHtml } from './views.js';
 
 export function show(id) { const el = document.getElementById(id); if (el) el.style.display = ''; }
 export function hide(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
@@ -31,13 +31,13 @@ export function renderCombat() {
   if (!c) return;
   const trainer = findTrainer(c.trainerId);
 
-  setText('trainer-emoji', trainer.emoji);
+  setIcon('trainer-emoji', trainer);
   setText('trainer-name',  trainer.nom);
 
   const enemy = c.enemyTeam[c.currentEnemyIdx];
   const enInst = INSTRUMENTS[enemy.instrumentId];
   setText('enemy-name',  enInst.nom);
-  setText('enemy-emoji', enInst.emoji);
+  setIcon('enemy-emoji', enInst);
   setText('enemy-lvl',   Math.max(1, Math.round(GameState.currentLevel * 0.35) + 1));
   updateHpFill('enemy-hp-fill', enemy.hp, enemy.hpMax);
 
@@ -46,7 +46,7 @@ export function renderCombat() {
     const plInst = INSTRUMENTS[player.instrumentId];
     setText('player-name',  plInst.nom);
     setText('player-lvl',   player.nivell);
-    setText('player-emoji', plInst.emoji);
+    setIcon('player-emoji', plInst);
     setText('player-hp-text', `${player.hp}/${player.hpMax}`);
     updateHpFill('player-hp-fill', player.hp, player.hpMax);
     const xpPct = pctXPNivell(player);
@@ -76,7 +76,7 @@ function updateHpFill(id, hp, hpMax) {
 export function mostrarTrainerIntro(trainer, callback) {
   const overlay = document.getElementById('trainer-intro');
   if (!overlay) { callback(); return; }
-  setText('ti-emoji', trainer.emoji);
+  setIcon('ti-emoji', trainer);
   setText('ti-name',  trainer.nom);
   setText('ti-frase', `«${trainer.frase}»`);
   overlay.style.display = 'flex';
@@ -121,7 +121,7 @@ export function renderChooseAttack(onAttackChosen) {
       btn.innerHTML = `
         <div class="att-name">???</div>
         <div class="att-foot">
-          <span class="att-family">🔒 Lv ${llindarsNivell[idx]}</span>
+          <span class="att-family">Lv ${llindarsNivell[idx]}</span>
           <span class="att-dany"><span class="dany-label">Poder</span> ??</span>
         </div>`;
     } else {
@@ -218,7 +218,7 @@ export function mostrarPantallaXP(onContinue) {
     const row = document.createElement('div');
     row.className = 'xp-reward-row';
     row.innerHTML = `
-      <div class="xp-reward-emoji">${inst.emoji}</div>
+      <div class="xp-reward-emoji">${iconHtml(inst)}</div>
       <div class="xp-reward-info">
         <div class="xp-reward-name">${inst.nom}</div>
         <div class="xp-reward-detail">+${xpGuany} XP <span class="xp-row-msg"></span></div>
@@ -253,7 +253,7 @@ export function mostrarPantallaXP(onContinue) {
         if ([3, 5, 7].includes(nv)) {
           const idxAtac = nv === 3 ? 1 : nv === 5 ? 2 : 3;
           setTimeout(() => {
-            import('./toast.js').then(m => m.toast(`✨ ${inst.nom} ha après ${inst.atacs[idxAtac]}!`, 'good', 3500));
+            import('./toast.js').then(m => m.toast(`${inst.nom} ha après ${inst.atacs[idxAtac]}!`, 'good', 3500));
           }, 600);
         }
       });

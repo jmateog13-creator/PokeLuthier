@@ -7,7 +7,7 @@ import { GameState, desar } from '../engine/state.js';
 import { CONFIG } from '../data/config.js';
 import { INSTRUMENTS } from '../data/instruments.js';
 import { generarSalvatges, reclutarSalvatge } from '../engine/encounter.js';
-import { showView, setText } from './views.js';
+import { showView, setText, iconHtml } from './views.js';
 import { toast } from './toast.js';
 import { renderHUD } from './hud.js';
 
@@ -22,7 +22,7 @@ export function obrirEncounter() {
     const card = document.createElement('div');
     card.className = 'encounter-card';
     card.innerHTML = `
-      <div class="encounter-emoji">${inst.emoji}</div>
+      <div class="encounter-emoji">${iconHtml(inst)}</div>
       <div class="encounter-name">${inst.nom}</div>
       <div class="encounter-family">${inst.familia}</div>
       <div class="encounter-stats">HP ${inst.hpMax} · Atc ${inst.danys[0]}</div>
@@ -64,7 +64,7 @@ function mostrarReemplaceModal(idNou) {
     const div = document.createElement('div');
     div.className = 'pick-opt';
     div.innerHTML = `
-      <div class="pick-emoji">${inst.emoji}</div>
+      <div class="pick-emoji">${iconHtml(inst)}</div>
       <div class="pick-name">${inst.nom}</div>
       <div class="pick-stats">HP ${t.hp}/${t.hpMax}<br>Lv ${t.nivell}</div>`;
     div.addEventListener('click', () => {

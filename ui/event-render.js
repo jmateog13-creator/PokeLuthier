@@ -15,7 +15,6 @@ import { renderHUD } from './hud.js';
 export function obrirEsdeveniment(eventId) {
   const ev = EVENTS.find(e => e.id === eventId) || EVENTS[0];
   showView('esdeveniment');
-  setText('event-emoji', ev.emoji);
   setText('event-titol', ev.titol);
   setText('event-text', ev.text);
   document.getElementById('event-result').style.display = 'none';

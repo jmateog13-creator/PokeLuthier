@@ -6,7 +6,7 @@
 import { GameState, playerActiu } from '../engine/state.js';
 import { INSTRUMENTS } from '../data/instruments.js';
 import { MEDALS, ORDRE_MEDALLES } from '../data/medals.js';
-import { setText } from './views.js';
+import { setText, setIcon } from './views.js';
 
 export function renderHUD() {
   if (!GameState) return;
@@ -17,7 +17,7 @@ export function renderHUD() {
   const t = playerActiu();
   if (t) {
     const inst = INSTRUMENTS[t.instrumentId];
-    setText('hud-team-emoji', inst.emoji);
+    setIcon('hud-team-emoji', inst);
     setText('hud-team-name',  inst.nom);
     setText('hud-team-lvl',   t.nivell);
     const fill = document.getElementById('hud-team-hp');
@@ -44,7 +44,7 @@ function renderMedalles() {
     const el = document.createElement('div');
     el.className = 'medal-slot' + (guanyada ? ' won' : '');
     el.title = m.nom + (guanyada ? '' : ' (no guanyada)');
-    el.innerHTML = `<span class="medal-icon">${guanyada ? m.emoji : '·'}</span>`;
+    el.innerHTML = `<span class="medal-icon" style="background:${guanyada ? m.color : '#888'}"></span>`;
     cont.appendChild(el);
   });
 }

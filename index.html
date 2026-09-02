@@ -27,12 +27,21 @@
     <div class="landing-content">
       <h1 class="game-logo"><span class="logo-pokeline">PokéLuthier</span></h1>
       <p class="game-tagline">~ El conservatori encantat ~</p>
-      <div class="landing-instruments">🪈 🎻 🎺 🎷 🥁 🎹 🎸 🪗</div>
+      <div class="landing-instruments">
+        <img class="inst-icon-img" src="assets/instruments_landing/flauta.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/violi.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/trompeta.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/saxofon.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/tambor.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/piano.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/guitarra_electrica.png" alt="">
+        <img class="inst-icon-img" src="assets/instruments_landing/acordio.png" alt="">
+      </div>
 
       <div class="landing-actions">
         <button id="btn-jugar"     class="poke-btn poke-btn-primary">▶ JUGAR</button>
-        <button id="btn-tutorial"  class="poke-btn">📖 TUTORIAL</button>
-        <button id="btn-practica"  class="poke-btn">🎯 PRÀCTICA</button>
+        <button id="btn-tutorial"  class="poke-btn">TUTORIAL</button>
+        <button id="btn-practica"  class="poke-btn">PRÀCTICA</button>
         <button id="btn-continuar" class="poke-btn poke-btn-small" style="display:none;">⤵ Continuar partida</button>
       </div>
       <div class="landing-credits">AulaTech Lab · 1r ESO Música</div>
@@ -45,7 +54,6 @@
       <div class="poke-box tut-box">
         <div class="tut-progress" id="tut-progress">Pas 1 de 7</div>
         <div class="tut-header">
-          <div class="tut-emoji" id="tut-emoji">🎓</div>
           <div class="tut-headinfo">
             <h2 class="tut-titol" id="tut-titol">—</h2>
             <p class="tut-text" id="tut-text">—</p>
@@ -75,7 +83,7 @@
       <div class="team-box">
         <div class="team-label">TEAM</div>
         <div class="team-content">
-          <div class="team-emoji" id="hud-team-emoji">🪈</div>
+          <div class="team-emoji" id="hud-team-emoji"></div>
           <div class="team-info">
             <div class="team-name" id="hud-team-name">Flauta Dolça</div>
             <div class="team-lvl">Lv<span id="hud-team-lvl">1</span></div>
@@ -93,7 +101,7 @@
           <div class="bag-gold">♪ <span id="hud-or">50</span></div>
           <div class="bag-buttons">
             <button id="btn-equip" class="bag-btn">EQUIP</button>
-            <button id="btn-worldmap" class="bag-btn">🗺 MAPA</button>
+            <button id="btn-worldmap" class="bag-btn">MAPA</button>
           </div>
         </div>
       </div>
@@ -120,7 +128,7 @@
     <!-- INTRO NPC -->
     <div id="trainer-intro" class="trainer-intro-overlay" style="display:none;">
       <div class="trainer-intro-content">
-        <div class="trainer-intro-emoji" id="ti-emoji">🥁</div>
+        <div class="trainer-intro-emoji" id="ti-emoji"></div>
         <div class="trainer-intro-label">Un entrenador et desafia!</div>
         <div class="trainer-intro-name" id="ti-name">Mestre Compàs</div>
         <div class="trainer-intro-frase" id="ti-frase">«...»</div>
@@ -129,18 +137,18 @@
 
     <div class="battle-enemy">
       <div class="enemy-info-box">
-        <div class="trainer-line"><span id="trainer-emoji">🥁</span> <span id="trainer-name">Mestre Compàs</span></div>
+        <div class="trainer-line"><span id="trainer-emoji"></span> <span id="trainer-name">Mestre Compàs</span></div>
         <div class="info-name"><span id="enemy-name">Violí</span> <span class="info-lvl">Lv<span id="enemy-lvl">5</span></span></div>
         <div class="hp-row"><span class="hp-label">HP</span><div class="hp-bar"><div class="hp-fill" id="enemy-hp-fill"></div></div></div>
       </div>
       <div class="battle-platform">
-        <div class="platform-emoji" id="enemy-emoji">🎻</div>
+        <div class="platform-emoji" id="enemy-emoji"></div>
       </div>
     </div>
 
     <div class="battle-player">
       <div class="battle-platform platform-player">
-        <div class="platform-emoji" id="player-emoji">🪈</div>
+        <div class="platform-emoji" id="player-emoji"></div>
       </div>
       <div class="player-info-box">
         <div class="info-name"><span id="player-name">Flauta Dolça</span> <span class="info-lvl">Lv<span id="player-lvl">1</span></span></div>
@@ -170,7 +178,7 @@
       </div>
 
       <div class="action-row" id="action-row" style="display:none;">
-        <button id="btn-switch" class="poke-btn poke-btn-small">🎒 Cintura</button>
+        <button id="btn-switch" class="poke-btn poke-btn-small">Cintura</button>
       </div>
     </div>
   </section>
@@ -191,7 +199,7 @@
   <section id="view-botiga" class="view scene-shop">
     <div class="shop-wrap">
       <div class="poke-box shop-header-box">
-        <h2>🎼 Botiga del Luthier</h2>
+        <h2>Botiga del Luthier</h2>
         <p>Tens <span class="hud-gold-inline">♪ <span id="shop-or">50</span></span></p>
       </div>
       <div id="shop-grid" class="shop-grid"></div>
@@ -205,7 +213,6 @@
   <section id="view-esdeveniment" class="view scene-route">
     <div class="event-wrap">
       <div class="poke-box event-box">
-        <div class="event-emoji" id="event-emoji">🎁</div>
         <h2 id="event-titol">Esdeveniment</h2>
         <p class="event-text" id="event-text"></p>
         <div class="event-opcions" id="event-opcions"></div>
@@ -218,7 +225,7 @@
   <section id="view-encounter" class="view scene-route">
     <div class="encounter-wrap">
       <div class="poke-box encounter-box">
-        <h2 class="encounter-titol">🪈 Has trobat instruments salvatges!</h2>
+        <h2 class="encounter-titol">Has trobat instruments salvatges!</h2>
         <p class="encounter-sub">Tria un per capturar-lo (o marxa)</p>
         <div class="encounter-options" id="encounter-options"></div>
         <button id="btn-encounter-marxar" class="poke-btn">Marxar sense capturar</button>
@@ -265,7 +272,7 @@
   <section id="view-victoria" class="view scene-outdoor">
     <div class="end-wrap">
       <div class="poke-box end-box">
-        <div class="end-emoji">🏆</div>
+        
         <h2>Has dirigit el concert!</h2>
         <p>Has derrotat el Director d'Orquestra i has esdevingut <strong>Mestre Luthier</strong>.</p>
         <button id="btn-nova-partida" class="poke-btn poke-btn-primary">Nova partida</button>
@@ -277,7 +284,7 @@
   <section id="view-gameover" class="view scene-outdoor dark-scene">
     <div class="end-wrap">
       <div class="poke-box end-box">
-        <div class="end-emoji">🎻</div>
+        
         <h2>El concert s'ha acabat...</h2>
         <p>Tots els teus instruments s'han trencat.</p>
         <button id="btn-tornar-comencar" class="poke-btn poke-btn-primary">Tornar a començar</button>
@@ -297,6 +304,7 @@
   <!-- Toast -->
   <div id="toast" class="toast"></div>
 
+  <script src="../_bridge.js"></script>
   <script type="module" src="app.js"></script>
 </body>
 </html>

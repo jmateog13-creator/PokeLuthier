@@ -1016,6 +1016,10 @@ button {
 }
 
 /* MAP NODES — estil HG/SS: emojis grans sense cercle, amb ombra el·líptica sota */
+/* Icona d'instrument/zona real (substitueix l'emoji): mida = font-size del
+   contenidor, així hereta totes les mides responsives ja definides per emoji. */
+.inst-icon-img { width: 1em; height: 1em; object-fit: contain; vertical-align: middle; }
+
 .map-node {
   width: 120px;
   height: 120px;
@@ -2960,7 +2964,7 @@ button {
   box-shadow: 0 0 0 3px var(--cream), 0 0 0 7px var(--ink), 6px 6px 0 4px var(--ink);
   padding: 14px 16px;
   overflow: hidden;
-  min-height: 140px;
+  min-height: 210px;
 }
 .worldmap-card-bg {
   position: absolute;
@@ -2989,7 +2993,7 @@ button {
   justify-content: center;
 }
 .worldmap-card-emoji {
-  font-size: 3rem;
+  font-size: 6.5rem;
   line-height: 1;
   text-align: center;
   margin-bottom: 6px;

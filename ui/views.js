@@ -13,5 +13,15 @@ export function showView(name) {
 }
 
 export function setText(id, v) { const el = document.getElementById(id); if (el) el.textContent = v; }
+
+// Icona d'instrument/zona: sprite propi si existeix, si no cau a l'emoji.
+export function iconHtml(obj) {
+  if (!obj) return '';
+  return obj.sprite ? `<img class="inst-icon-img" src="${obj.sprite}" alt="${obj.nom || ''}">` : (obj.emoji || '');
+}
+export function setIcon(id, obj) {
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = iconHtml(obj);
+}
 export function show(id) { const el = document.getElementById(id); if (el) el.style.display = ''; }
 export function hide(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }

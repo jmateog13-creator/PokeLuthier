@@ -13,6 +13,11 @@ import { showView, setText } from './views.js';
 export function mostrarBalanc(esVictoria) {
   const dades = balancFinal();
   if (!dades) return;
+  window.AulaTechBridge.sendOnce('pokeluthier', {
+    completat: !!esVictoria,
+    errors: dades.errors,
+    precisio: dades.pctTotal / 100,
+  });
   showView('balanc');
 
   const cont = document.getElementById('balanc-content');
@@ -22,7 +27,7 @@ export function mostrarBalanc(esVictoria) {
   const header = document.createElement('div');
   header.className = 'balanc-header';
   header.innerHTML = `
-    <div class="balanc-emoji">${esVictoria ? '🏆' : '🎻'}</div>
+    <div class="balanc-emoji">${esVictoria ? '<img class="inst-icon-img" src="assets/entrenadors/director_orquestra.png" alt="">' : ''}</div>
     <h1 class="balanc-titol">${esVictoria ? 'Has esdevingut Mestre Luthier!' : 'El concert s\'ha acabat...'}</h1>
     <p class="balanc-sub">${esVictoria ? 'Has derrotat el Director d\'Orquestra' : 'Però has après molt pel camí'}</p>
   `;
@@ -31,14 +36,14 @@ export function mostrarBalanc(esVictoria) {
   // Medalles guanyades
   const medsRow = document.createElement('div');
   medsRow.className = 'balanc-medals';
-  medsRow.innerHTML = '<div class="balanc-section-title">🏅 Medalles obtingudes</div><div class="balanc-medals-row"></div>';
+  medsRow.innerHTML = '<div class="balanc-section-title">Medalles obtingudes</div><div class="balanc-medals-row"></div>';
   const medsRowInner = medsRow.querySelector('.balanc-medals-row');
   ORDRE_MEDALLES.forEach(id => {
     const m = MEDALS[id];
     const guanyada = GameState.medalles.includes(id);
     const el = document.createElement('div');
     el.className = 'balanc-medal' + (guanyada ? ' won' : '');
-    el.innerHTML = `<div class="balanc-medal-emoji" style="background:${guanyada ? m.color : '#888'}">${guanyada ? m.emoji : '·'}</div><div class="balanc-medal-name">${m.nom}</div>`;
+    el.innerHTML = `<div class="balanc-medal-emoji" style="background:${guanyada ? m.color : '#888'}"></div><div class="balanc-medal-name">${m.nom}</div>`;
     medsRowInner.appendChild(el);
   });
   cont.appendChild(medsRow);
@@ -47,7 +52,7 @@ export function mostrarBalanc(esVictoria) {
   const resum = document.createElement('div');
   resum.className = 'balanc-resum';
   resum.innerHTML = `
-    <div class="balanc-section-title">📊 Resum global</div>
+    <div class="balanc-section-title">Resum global</div>
     <div class="balanc-stats-grid">
       <div class="balanc-stat"><div class="balanc-stat-num">${dades.encerts}</div><div class="balanc-stat-label">Encerts</div></div>
       <div class="balanc-stat"><div class="balanc-stat-num">${dades.errors}</div><div class="balanc-stat-label">Errors</div></div>
@@ -62,16 +67,16 @@ export function mostrarBalanc(esVictoria) {
   // Detall per tema (M3 — el cor pedagògic)
   const perTema = document.createElement('div');
   perTema.className = 'balanc-temes';
-  perTema.innerHTML = `<div class="balanc-section-title">📚 Per tema (què has après)</div>`;
+  perTema.innerHTML = `<div class="balanc-section-title">Per tema (què has après)</div>`;
   const llistaTemes = document.createElement('div');
   llistaTemes.className = 'balanc-temes-list';
 
   for (const tema in dades.perTema) {
     const t = dades.perTema[tema];
-    const nivell = t.pct >= 85 ? '🌟 Excel·lent' :
-                   t.pct >= 70 ? '✅ Bé'         :
-                   t.pct >= 50 ? '⚠️ Pots millorar' :
-                                 '🔴 Repassa amb el profe';
+    const nivell = t.pct >= 85 ? 'Excel·lent' :
+                   t.pct >= 70 ? 'Bé'         :
+                   t.pct >= 50 ? 'Pots millorar' :
+                                 'Repassa amb el profe';
     const row = document.createElement('div');
     row.className = 'balanc-tema-row';
     row.innerHTML = `

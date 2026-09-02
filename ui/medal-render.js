@@ -11,8 +11,8 @@ export function mostrarMedallaObtinguda(medalla, callback) {
   overlay.className = 'medal-overlay';
   overlay.innerHTML = `
     <div class="medal-card">
-      <div class="medal-label">✨ MEDALLA OBTINGUDA ✨</div>
-      <div class="medal-big" style="background:${medalla.color}">${medalla.emoji}</div>
+      <div class="medal-label">MEDALLA OBTINGUDA</div>
+      <div class="medal-big" style="background:${medalla.color}"></div>
       <div class="medal-name">${medalla.nom}</div>
       <div class="medal-desc">${medalla.descripcio}</div>
       <button class="poke-btn poke-btn-primary medal-continue">Continuar</button>

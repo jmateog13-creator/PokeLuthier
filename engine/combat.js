@@ -155,7 +155,7 @@ function onAnswerChosen(originalIdx, btnEl) {
     const febleId = temaFebledetectat();
     if (febleId && Math.random() < 0.3) {
       const nomTema = { notes:'Notes musicals', alteracions:'Alteracions', compassos:'Compassos', figures:'Figures rítmiques', instruments:'Instruments' }[febleId];
-      setTimeout(() => toast(`💡 Repassa: ${nomTema}`, 'info', 2200), 1800);
+      setTimeout(() => toast(`Repassa: ${nomTema}`, 'info', 2200), 1800);
     }
   }
 

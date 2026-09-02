@@ -202,12 +202,12 @@ function assegurarMinimSalvatges(levels, minim) {
 //   Zona 6 = Alt Comandament + Campió           (nivells 57-61)
 
 export const ZONES = Object.freeze([
-  { id:1, nom:'Conservatori i Bosc del Pols', emoji:'🥁',  biome:'bosc_pols',         range:[1,12],  gym:'mestre_compas',     medalla:'pols' },
-  { id:2, nom:'Vall del Sol',                emoji:'🌻',  biome:'vall_sol',          range:[13,23], gym:'professora_solfa',  medalla:'pentagrama' },
-  { id:3, nom:'Pas Cromàtic',                emoji:'⛰️',  biome:'pas_cromatic',      range:[24,34], gym:'doctor_alteracions',medalla:'cromatica' },
-  { id:4, nom:'Conservatori Antic',          emoji:'🏛️',  biome:'conservatori_antic',range:[35,45], gym:'vell_luthier',      medalla:'ebenista' },
-  { id:5, nom:'Mont Vibrato',                emoji:'🗻',  biome:'mont_vibrato',      range:[46,56], gym:'capita_vibrato',    medalla:'or' },
-  { id:6, nom:'Sala de l\'Alt Comandament', emoji:'👑',  biome:'lliga',             range:[57,61], gym:null,                 medalla:null }
+  { id:1, nom:'Conservatori i Bosc del Pols', sprite:'assets/mapa/zona_bosc_pols.png',         biome:'bosc_pols',         range:[1,12],  gym:'mestre_compas',     medalla:'pols' },
+  { id:2, nom:'Vall del Sol',                sprite:'assets/mapa/zona_vall_sol.png',          biome:'vall_sol',          range:[13,23], gym:'professora_solfa',  medalla:'pentagrama' },
+  { id:3, nom:'Pas Cromàtic',                sprite:'assets/mapa/zona_pas_cromatic.png',      biome:'pas_cromatic',      range:[24,34], gym:'doctor_alteracions',medalla:'cromatica' },
+  { id:4, nom:'Conservatori Antic',          sprite:'assets/mapa/zona_conservatori_antic.png',biome:'conservatori_antic',range:[35,45], gym:'vell_luthier',      medalla:'ebenista' },
+  { id:5, nom:'Mont Vibrato',                sprite:'assets/mapa/zona_mont_vibrato.png',      biome:'mont_vibrato',      range:[46,56], gym:'capita_vibrato',    medalla:'or' },
+  { id:6, nom:'Sala de l\'Alt Comandament', sprite:'assets/mapa/zona_lliga.png',             biome:'lliga',             range:[57,61], gym:null,                 medalla:null }
 ]);
 
 /**

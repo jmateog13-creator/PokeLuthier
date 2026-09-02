@@ -4,7 +4,7 @@
 // ============================================================================
 
 import { GameState, setGameState, nouEstat, carregar, esborrarSave, desar } from './engine/state.js';
-import { showView } from './ui/views.js';
+import { showView, iconHtml } from './ui/views.js';
 import { renderHUD } from './ui/hud.js';
 import { renderMapa, dibuixarLiniesMapa } from './ui/map-render.js';
 import { obrirTutorial } from './ui/tutorial-render.js';
@@ -14,6 +14,7 @@ import { ferSwitch } from './engine/combat.js';
 
 // ─── Cicle de partida ────────────────────────────────────────────────────
 function novaPartida() {
+  window.AulaTechBridge.startClock();
   esborrarSave();
   setGameState(nouEstat());
   GameState.team[0].slotActiu = true;
@@ -62,7 +63,7 @@ function obrirEquip() {
           if (t.hp <= 0) slot.classList.add('broken');
           if (t.slotActiu) slot.classList.add('active');
           slot.innerHTML = `
-            <div class="equip-emoji">${inst.emoji}</div>
+            <div class="equip-emoji">${iconHtml(inst)}</div>
             <div class="equip-info">
               <div class="equip-name">${inst.nom} · Lv${t.nivell}</div>
               <div class="equip-hp-bar"><div class="equip-hp-fill" style="width:${(t.hp/t.hpMax)*100}%"></div></div>

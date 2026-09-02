@@ -19,7 +19,7 @@ export function obrirPractica() {
 function renderTriaPractica() {
   const cont = document.getElementById('practica-content');
   cont.innerHTML = `
-    <div class="practica-titol">🎯 Mode Pràctica</div>
+    <div class="practica-titol">Mode Pràctica</div>
     <p class="practica-sub">Tria un tema i una dificultat. Faràs 10 preguntes sense conseqüències.</p>
 
     <div class="practica-section">
@@ -165,7 +165,7 @@ function renderResum() {
   const pct = total ? Math.round((estatPractica.encerts / total) * 100) : 0;
   cont.innerHTML = `
     <div class="practica-resum">
-      <div class="practica-resum-emoji">${pct >= 80 ? '🌟' : pct >= 50 ? '✅' : '📚'}</div>
+      <div class="practica-resum-emoji">${pct >= 80 ? '✦✦✦' : pct >= 50 ? '✦✦' : '✦'}</div>
       <h2>Sessió acabada!</h2>
       <div class="practica-resum-stats">
         <div><strong>${estatPractica.encerts}</strong> encerts</div>

@@ -10,7 +10,7 @@ import { findTrainer } from '../data/trainers.js';
 import { MEDALS } from '../data/medals.js';
 import { casaDelSentiu, obrirCofre } from '../engine/shop.js';
 import { temaFebledetectat, registrarResposta } from '../engine/stats.js';
-import { showView, setText } from './views.js';
+import { showView, setText, iconHtml } from './views.js';
 import { toast } from './toast.js';
 import { renderHUD } from './hud.js';
 
@@ -19,7 +19,7 @@ export function obrirCentreReps() {
   showView('centre');
   const cont = document.getElementById('centre-content');
   cont.innerHTML = `
-    <div class="centre-emoji">🏥</div>
+    <div class="centre-emoji"><img class="inst-icon-img" src="assets/mapa/node_curacio.png" alt=""></div>
     <h2>Casa del Sentiu</h2>
     <p>La curandera musical et somriu. <br>"Deixa que els teus instruments descansin..."</p>
     <button class="poke-btn poke-btn-primary" id="btn-centre-curar">DESCANSAR (gratis)</button>
@@ -39,7 +39,7 @@ export function obrirCofreUI() {
   showView('cofre');
   const cont = document.getElementById('cofre-content');
   cont.innerHTML = `
-    <div class="cofre-emoji">💎</div>
+    <div class="cofre-emoji"><img class="inst-icon-img" src="assets/mapa/node_cofre.png" alt=""></div>
     <h2>Cofre amagat</h2>
     <p>Una caixa de fusta amb una clau de sol esculpida...</p>
     <button class="poke-btn poke-btn-primary" id="btn-cofre-obrir">OBRIR</button>
@@ -48,7 +48,7 @@ export function obrirCofreUI() {
   document.getElementById('btn-cofre-obrir').onclick = () => {
     const res = obrirCofre();
     cont.innerHTML = `
-      <div class="cofre-emoji">${res.tipus === 'or' ? '💰' : res.tipus === 'cura50' ? '💊' : '💥'}</div>
+      <div class="cofre-emoji"><img class="inst-icon-img" src="assets/mapa/node_cofre.png" alt=""></div>
       <h2>${res.msg}</h2>
       <button class="poke-btn poke-btn-primary" id="btn-cofre-tornar">Tornar al mapa</button>
     `;
@@ -69,14 +69,14 @@ export function obrirCartell(gymId) {
     <h2>Cartell del Camí</h2>
     <div class="cartell-info">
       <div class="cartell-gym">
-        <span class="cartell-gym-emoji">${gym.emoji}</span>
+        <span class="cartell-gym-emoji">${iconHtml(gym)}</span>
         <div>
           <div class="cartell-gym-name">${gym.nom}</div>
-          <div class="cartell-gym-medal">${medalla.emoji} ${medalla.nom}</div>
+          <div class="cartell-gym-medal">${medalla.nom}</div>
         </div>
       </div>
       <p class="cartell-frase">"${gym.frase}"</p>
-      <p class="cartell-tip">💡 <strong>Pista del repàs</strong>: ${gym.tema === 'mixt' ? 'Repassa tots els temes' : 'Repassa: ' + (NOMS_TEMES[gym.tema] || gym.tema)}</p>
+      <p class="cartell-tip"><strong>Pista del repàs</strong>: ${gym.tema === 'mixt' ? 'Repassa tots els temes' : 'Repassa: ' + (NOMS_TEMES[gym.tema] || gym.tema)}</p>
     </div>
     <button class="poke-btn poke-btn-primary" id="btn-cartell-seguir">Continuar al Gym ›</button>
   `;
@@ -91,10 +91,10 @@ export function obrirMestreVagabund() {
   const temaSuggerit = febleId || null;
 
   cont.innerHTML = `
-    <div class="mestre-emoji">🧙‍♂️</div>
+    <div class="mestre-emoji"><img class="inst-icon-img" src="assets/mapa/node_mestre.png" alt=""></div>
     <h2>Mestre Vagabund</h2>
     <p>"Et plantejo 3 enigmes musicals. Cada encert: +20 ♪ i una mica de XP."</p>
-    ${temaSuggerit ? `<p class="mestre-tip">💡 Vaig a centrar-me en: <strong>${NOMS_TEMES[temaSuggerit]}</strong> (he vist que t'hi has equivocat).</p>` : ''}
+    ${temaSuggerit ? `<p class="mestre-tip">Vaig a centrar-me en: <strong>${NOMS_TEMES[temaSuggerit]}</strong> (he vist que t'hi has equivocat).</p>` : ''}
     <button class="poke-btn poke-btn-primary" id="btn-mestre-acceptar">ACCEPTAR</button>
     <button class="poke-btn" id="btn-mestre-marxar">Marxar</button>
   `;
@@ -112,7 +112,7 @@ function iniciarMestreQuiz(temaPrioritari) {
       GameState.or += guany;
       renderHUD();
       cont.innerHTML = `
-        <div class="mestre-emoji">🧙‍♂️</div>
+        <div class="mestre-emoji"><img class="inst-icon-img" src="assets/mapa/node_mestre.png" alt=""></div>
         <h2>Has acabat el repte!</h2>
         <p>${encerts}/3 encerts · +${guany} ♪</p>
         <button class="poke-btn poke-btn-primary" id="btn-mestre-fi">Tornar al mapa</button>
@@ -134,7 +134,7 @@ function iniciarMestreQuiz(temaPrioritari) {
     GameState.questionsAnswered.push(q.id);
 
     cont.innerHTML = `
-      <div class="mestre-emoji">🧙‍♂️</div>
+      <div class="mestre-emoji"><img class="inst-icon-img" src="assets/mapa/node_mestre.png" alt=""></div>
       <div class="mestre-prog">Pregunta ${preguntesFetes}/3</div>
       <div class="mestre-q">${q.q}</div>
       <div class="options-grid" id="mestre-opts"></div>
