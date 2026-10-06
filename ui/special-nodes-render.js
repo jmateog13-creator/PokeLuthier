@@ -148,7 +148,7 @@ function iniciarMestreQuiz(temaPrioritari) {
     opcionsConIdx.forEach(o => {
       const b = document.createElement('button');
       b.className = 'option-btn';
-      b.textContent = o.txt;
+      if (q.html) b.innerHTML = o.txt; else b.textContent = o.txt;
       b.addEventListener('click', () => {
         const correct = o.original === q.correcta;
         registrarResposta(q, correct, 0);

@@ -5,8 +5,9 @@
 
 import { GameState, playerActiu, desar, esborrarSave } from './state.js';
 import { CONFIG } from '../data/config.js';
-import { INSTRUMENTS } from '../data/instruments.js';
-import { QUESTIONS } from '../data/questions.js';
+import { INSTRUMENTS, POOL_RECLUTABLES } from '../data/instruments.js';
+import { QUESTIONS, NOMS_TEMES } from '../data/questions.js';
+import { CURS1 } from '../data/curs1.js';
 import { findTrainer } from '../data/trainers.js';
 import { MEDALS } from '../data/medals.js';
 import { registrarResposta, temaFebledetectat } from './stats.js';
@@ -32,18 +33,18 @@ export function iniciarCombat(node) {
     enemyTeam = trainer.equip.map(id => {
       const inst = INSTRUMENTS[id];
       const scaleHP = esChamp ? 1.35 : (esAC ? 1.25 : (esGym ? 1.15 : (0.75 + GameState.currentLevel / 80)));
-      const hp = Math.round(inst.hpMax * scaleHP);
+      const hp = Math.round(inst.hpMax * scaleHP * (CURS1 ? 0.7 : 1));   // 1r: combats més curts
       return { instrumentId: id, hp, hpMax: hp };
     });
   } else {
-    const poolEnemic = Object.keys(INSTRUMENTS).filter(i => i !== 'flauta');
+    const poolEnemic = POOL_RECLUTABLES;   // tots menys la flauta (en 1r, només instruments de 1r)
     enemyTeam = [];
     for (let i = 0; i < (node.enemyCount || 1); i++) {
       const pickRandom = a => a[Math.floor(Math.random() * a.length)];
       const instId = pickRandom(poolEnemic);
       const inst = INSTRUMENTS[instId];
       const scaleHP = 0.7 + GameState.currentLevel / 80;
-      const hp = Math.round(inst.hpMax * scaleHP);
+      const hp = Math.round(inst.hpMax * scaleHP * (CURS1 ? 0.7 : 1));
       enemyTeam.push({ instrumentId: instId, hp, hpMax: hp });
     }
   }
@@ -154,7 +155,7 @@ function onAnswerChosen(originalIdx, btnEl) {
   if (!correct) {
     const febleId = temaFebledetectat();
     if (febleId && Math.random() < 0.3) {
-      const nomTema = { notes:'Notes musicals', alteracions:'Alteracions', compassos:'Compassos', figures:'Figures rítmiques', instruments:'Instruments' }[febleId];
+      const nomTema = { notes:'Notes musicals', alteracions:'Alteracions', compassos:'Compassos', figures:'Figures rítmiques', instruments:'Instruments' }[febleId] || NOMS_TEMES[febleId];
       setTimeout(() => toast(`Repassa: ${nomTema}`, 'info', 2200), 1800);
     }
   }
@@ -240,7 +241,7 @@ function instrumentTrencat() {
   anim('player-emoji', 'broken-anim');
 
   GameState.stats.instrumentsTrencats++;
-  setCombatMsg(`${inst.nom} s'ha trencat de manera irreversible...`, true);
+  setCombatMsg(CURS1 ? `${inst.nom} s'ha trencat.` : `${inst.nom} s'ha trencat de manera irreversible...`, true);
 
   const slotIdx = GameState.team.indexOf(player);
   if (!GameState.brokenSlots.includes(slotIdx)) GameState.brokenSlots.push(slotIdx);
@@ -346,6 +347,18 @@ function aplicarXPFinal() {
 }
 
 function gameOver() {
+  // 1r: sense game over dur. El Luthier ho arregla tot i es repeteix el combat.
+  if (CURS1) {
+    const node = GameState.mapData[GameState.currentLevel - 1][GameState.currentNodeIdx];
+    GameState.activeCombat = null;
+    GameState.team.forEach(t => { t.hp = t.hpMax; t.slotActiu = false; });
+    GameState.brokenSlots = [];
+    GameState.team[0].slotActiu = true;
+    desar();
+    toast('El Luthier arregla els teus instruments. Torna-ho a provar!', 'info', 3000);
+    setTimeout(() => iniciarCombat(node), 1600);
+    return;
+  }
   // Si el game over passa a la Lliga, deixem el progrés intacte amb medalles
   const eraLliga = GameState.activeCombat && (GameState.activeCombat.tipusCombat === 'eliteFour' || GameState.activeCombat.tipusCombat === 'champion');
   if (eraLliga && GameState.medalles.length >= 5) {

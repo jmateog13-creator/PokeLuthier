@@ -8,7 +8,8 @@ import { EVENTS } from '../data/events.js';
 import { QUESTIONS } from '../data/questions.js';
 import { resoldreEfecte } from '../engine/events.js';
 import { registrarResposta } from '../engine/stats.js';
-import { showView, setText } from './views.js';
+import { INSTRUMENTS } from '../data/instruments.js';
+import { showView, setText, iconHtml } from './views.js';
 import { toast } from './toast.js';
 import { renderHUD } from './hud.js';
 
@@ -63,7 +64,8 @@ function triarInstrumentACurar() {
   viables.forEach(t => {
     const div = document.createElement('div');
     div.className = 'pick-opt';
-    div.innerHTML = `<div class="pick-emoji">${t.instrumentId}</div><div class="pick-stats">${t.hp}/${t.hpMax}</div>`;
+    const inst = INSTRUMENTS[t.instrumentId];
+    div.innerHTML = `<div class="pick-emoji">${iconHtml(inst)}</div><div class="pick-name">${inst ? inst.nom : t.instrumentId}</div><div class="pick-stats">${t.hp}/${t.hpMax}</div>`;
     div.addEventListener('click', () => {
       t.hp = t.hpMax;
       document.body.removeChild(modal);
@@ -115,7 +117,7 @@ function iniciarMiniQuiz() {
     opcionsConIdx.forEach(o => {
       const b = document.createElement('button');
       b.className = 'option-btn';
-      b.textContent = o.txt;
+      if (q.html) b.innerHTML = o.txt; else b.textContent = o.txt;
       b.addEventListener('click', () => {
         const correct = o.original === q.correcta;
         registrarResposta(q, correct, 0);

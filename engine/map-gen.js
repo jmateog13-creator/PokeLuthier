@@ -13,6 +13,7 @@ import { CONFIG } from '../data/config.js';
 import { POOL_TRAINERS_COMUNS, GYM_LEADERS, ELITE_FOUR, CHAMPION } from '../data/trainers.js';
 import { EVENTS } from '../data/events.js';
 import { ORDRE_MEDALLES } from '../data/medals.js';
+import { CURS1 } from '../data/curs1.js';
 
 function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
@@ -69,12 +70,18 @@ function generarNodeRuta(seed) {
 const GYM_ORDER = ['mestre_compas','professora_solfa','doctor_alteracions','vell_luthier','capita_vibrato'];
 const AC_ORDER  = ['ac1_improvisadora','ac2_solista','ac3_harmonista','ac4_compositora'];
 
-export const MAP_LEVELS_TOTAL = 61;
+// 1r (?curs=1): partida curta. Inici + 3 nivells + cartell + Líder de la corda (6),
+// 3 nivells + cartell + Líder del vent (11), Director (12). Sense Alt Comandament.
+const GYMS_C1 = { 6: 'vell_luthier', 11: 'capita_vibrato' };
+
+export const MAP_LEVELS_TOTAL = CURS1 ? 12 : 61;
 
 function nivellEsGym(lvl) {
+  if (CURS1) return !!GYMS_C1[lvl];
   return lvl === 12 || lvl === 23 || lvl === 34 || lvl === 45 || lvl === 56;
 }
 function gymPerLevel(lvl) {
+  if (CURS1) return GYMS_C1[lvl] || null;
   if (lvl === 12) return 'mestre_compas';
   if (lvl === 23) return 'professora_solfa';
   if (lvl === 34) return 'doctor_alteracions';
@@ -83,6 +90,7 @@ function gymPerLevel(lvl) {
   return null;
 }
 function nivellEsCartell(lvl) {
+  if (CURS1) return !!GYMS_C1[lvl + 1];
   return lvl === 11 || lvl === 22 || lvl === 33 || lvl === 44 || lvl === 55;
 }
 function cartellPerLevel(lvl) {
@@ -90,10 +98,11 @@ function cartellPerLevel(lvl) {
   return gymPerLevel(lvl + 1);
 }
 function nivellEsAC(lvl) {
+  if (CURS1) return false;
   return lvl >= 57 && lvl <= 60;
 }
 function nivellEsCampio(lvl) {
-  return lvl === 61;
+  return lvl === MAP_LEVELS_TOTAL;
 }
 
 export function generarMapa() {
@@ -153,7 +162,7 @@ export function generarMapa() {
   }
 
   // Step 3: Garantir 3 trobades salvatges (🪈) per ruta — això és el cor Pokémon!
-  assegurarMinimSalvatges(levels, 3);
+  assegurarMinimSalvatges(levels, CURS1 ? 2 : 3);
 
   return levels;
 }
@@ -164,7 +173,7 @@ export function generarMapa() {
  * Així cada ruta té sempre opcions per capturar instruments.
  */
 function assegurarMinimSalvatges(levels, minim) {
-  ZONES.slice(0, 5).forEach(zona => {
+  ZONES.filter(z => z.gym).forEach(zona => {
     const [lvlMin, lvlMax] = zona.range;
 
     // Recollir nodes triables (només files amb >1 node, excloent inici/cartell/gym)
@@ -201,7 +210,11 @@ function assegurarMinimSalvatges(levels, minim) {
 //   Zona 5 = Ruta 5 + Cartell + Gym 5           (nivells 46-56)
 //   Zona 6 = Alt Comandament + Campió           (nivells 57-61)
 
-export const ZONES = Object.freeze([
+export const ZONES = Object.freeze(CURS1 ? [
+  { id:1, nom:'Conservatori i Bosc del Pols', sprite:'assets/mapa/zona_bosc_pols.png', biome:'bosc_pols', range:[1,6],   gym:'vell_luthier',   medalla:'ebenista' },
+  { id:2, nom:'Vall del Sol',                sprite:'assets/mapa/zona_vall_sol.png',  biome:'vall_sol',  range:[7,11],  gym:'capita_vibrato', medalla:'or' },
+  { id:3, nom:'Sala del Director',           sprite:'assets/mapa/zona_lliga.png',     biome:'lliga',     range:[12,12], gym:null,             medalla:null }
+] : [
   { id:1, nom:'Conservatori i Bosc del Pols', sprite:'assets/mapa/zona_bosc_pols.png',         biome:'bosc_pols',         range:[1,12],  gym:'mestre_compas',     medalla:'pols' },
   { id:2, nom:'Vall del Sol',                sprite:'assets/mapa/zona_vall_sol.png',          biome:'vall_sol',          range:[13,23], gym:'professora_solfa',  medalla:'pentagrama' },
   { id:3, nom:'Pas Cromàtic',                sprite:'assets/mapa/zona_pas_cromatic.png',      biome:'pas_cromatic',      range:[24,34], gym:'doctor_alteracions',medalla:'cromatica' },

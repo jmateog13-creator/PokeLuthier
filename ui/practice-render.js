@@ -7,6 +7,7 @@
 import { QUESTIONS, NOMS_TEMES, TEMES } from '../data/questions.js';
 import { showView, setText } from './views.js';
 import { toast } from './toast.js';
+import { CURS1 } from '../data/curs1.js';
 
 let estatPractica = null;
 
@@ -63,6 +64,11 @@ function renderTriaPractica() {
     };
     difCont.appendChild(b);
   });
+
+  if (CURS1) {   // 1r: sense nivells de dificultat
+    estatPractica.dificultat = 0;
+    difCont.parentElement.style.display = 'none';
+  }
 
   document.getElementById('btn-practica-comencar').onclick = iniciarSessio;
   document.getElementById('btn-practica-sortir').onclick = () => showView('landing');
@@ -124,7 +130,8 @@ function renderPreguntaActual() {
   opcionsConIdx.forEach(o => {
     const b = document.createElement('button');
     b.className = 'option-btn';
-    b.textContent = o.txt;
+    if (q.html) b.innerHTML = o.txt; else b.textContent = o.txt;
+    b.dataset.original = o.original;
     b.onclick = () => onResposta(o.original, b, q);
     grid.appendChild(b);
   });
@@ -142,7 +149,7 @@ function onResposta(idxTriat, btnEl, q) {
   btnEl.classList.add(correct ? 'option-correct' : 'option-wrong');
   if (!correct) {
     document.querySelectorAll('#practica-opts .option-btn').forEach(b => {
-      if (b.textContent === q.op[q.correcta]) b.classList.add('option-correct');
+      if (Number(b.dataset.original) === q.correcta) b.classList.add('option-correct');
     });
   }
 

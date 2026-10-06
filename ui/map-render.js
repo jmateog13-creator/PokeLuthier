@@ -7,7 +7,7 @@ import { GameState } from '../engine/state.js';
 import { BIOMES, biomePerLevel } from '../data/biomes.js';
 import { findTrainer, GYM_LEADERS } from '../data/trainers.js';
 import { MEDALS } from '../data/medals.js';
-import { MAP_LEVELS_TOTAL, nivellEsGym, nivellEsCartell, nivellEsAC, nivellEsCampio, gymPerLevel, zonaPerLevel, getZona } from '../engine/map-gen.js';
+import { MAP_LEVELS_TOTAL, nivellEsGym, nivellEsCartell, nivellEsAC, nivellEsCampio, gymPerLevel, zonaPerLevel, getZona, ZONES } from '../engine/map-gen.js';
 import { renderHUD } from './hud.js';
 import { iconHtml } from './views.js';
 
@@ -22,7 +22,7 @@ export function renderMapa() {
   // Determinar la zona a mostrar: si el jugador ha superat el gym actual, mostrar la següent
   const lvlActual = Math.max(1, GameState.currentLevel || 1);
   let zona = getZona(zonaPerLevel(lvlActual));
-  if (zona.medalla && GameState.medalles.includes(zona.medalla) && zona.id < 6) {
+  if (zona.medalla && GameState.medalles.includes(zona.medalla) && zona.id < ZONES.length) {
     zona = getZona(zona.id + 1);
   }
   const [lvlMin, lvlMax] = zona.range;
@@ -97,7 +97,7 @@ function renderZoneHeader(zona) {
   el.innerHTML = `
     <span class="zone-header-emoji">${iconHtml(zona)}</span>
     <span class="zone-header-name">${zona.nom}</span>
-    <span class="zone-header-meta">Zona ${zona.id}/6</span>
+    <span class="zone-header-meta">Zona ${zona.id}/${ZONES.length}</span>
   `;
 }
 

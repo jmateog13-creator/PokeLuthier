@@ -3,6 +3,8 @@
 // Configuració global: economia, XP, timers, recompenses.
 // ============================================================================
 
+import { CURS1 } from './curs1.js';
+
 export const CONFIG = Object.freeze({
 
   // Economia
@@ -11,7 +13,7 @@ export const CONFIG = Object.freeze({
 
   // Combat
   danyFalladaBase: 12,                // creix +1.1 per nivell de node
-  timerPerDificultat: [15, 11, 7],    // segons per dificultat 1/2/3
+  timerPerDificultat: CURS1 ? [25, 25, 25] : [15, 11, 7],   // 1r: temps de sobres per escoltar    // segons per dificultat 1/2/3
 
   // XP i nivells (1 a 7)
   xpPerEncertCombat: 4,               // s'acumula i s'aplica al final del combat

@@ -9,6 +9,7 @@ import { NOMS_TEMES } from '../data/questions.js';
 import { MEDALS, ORDRE_MEDALLES } from '../data/medals.js';
 import { GameState, esborrarSave, setGameState } from '../engine/state.js';
 import { showView, setText } from './views.js';
+import { CURS1 } from '../data/curs1.js';
 
 export function mostrarBalanc(esVictoria) {
   const dades = balancFinal();
@@ -57,7 +58,7 @@ export function mostrarBalanc(esVictoria) {
       <div class="balanc-stat"><div class="balanc-stat-num">${dades.encerts}</div><div class="balanc-stat-label">Encerts</div></div>
       <div class="balanc-stat"><div class="balanc-stat-num">${dades.errors}</div><div class="balanc-stat-label">Errors</div></div>
       <div class="balanc-stat"><div class="balanc-stat-num">${dades.pctTotal}%</div><div class="balanc-stat-label">% Total</div></div>
-      <div class="balanc-stat"><div class="balanc-stat-num">${dades.tempsMigSegons}s</div><div class="balanc-stat-label">Temps mig</div></div>
+      <div class="balanc-stat"><div class="balanc-stat-num">${CURS1 ? String(dades.tempsMigSegons).replace('.', ',') : dades.tempsMigSegons}s</div><div class="balanc-stat-label">Temps mig</div></div>
       <div class="balanc-stat"><div class="balanc-stat-num">${dades.combatsGuanyats}</div><div class="balanc-stat-label">Combats guanyats</div></div>
       <div class="balanc-stat"><div class="balanc-stat-num">${dades.instrumentsTrencats}</div><div class="balanc-stat-label">Trencats</div></div>
     </div>
@@ -73,6 +74,7 @@ export function mostrarBalanc(esVictoria) {
 
   for (const tema in dades.perTema) {
     const t = dades.perTema[tema];
+    if (CURS1 && !(t.ok + t.ko)) continue;   // 1r: només els temes que han sortit
     const nivell = t.pct >= 85 ? 'Excel·lent' :
                    t.pct >= 70 ? 'Bé'         :
                    t.pct >= 50 ? 'Pots millorar' :

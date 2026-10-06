@@ -149,7 +149,15 @@ function familyShort(familia) {
     'Percussió':        'PERC',
     'Idiòfon':          'IDIO',
     'Electròfon':       'ELEC',
-    'Veu':              'VEU'
+    'Veu':              'VEU',
+    // 1r (?curs=1)
+    'Corda polsada':    'CORDA',
+    'Vent fusta':       'FUSTA',
+    'Vent metall':      'METALL',
+    'Vent especial':    'VENT',
+    'Percussió amb altura':   'PERC',
+    'Percussió sense altura': 'PERC',
+    'Electrònics':      'ELEC'
   };
   return m[familia] || familia.toUpperCase().slice(0, 6);
 }
@@ -158,7 +166,8 @@ export function renderQuiz(q, onAnswerChosen, iniciarTimer) {
   hide('attack-zone'); hide('action-row'); hide('exp-zone');
   show('quiz-zone');
   setCombatMsg('Pregunta!', false);
-  setText('question-text', q.q);
+  if (q.html) document.getElementById('question-text').innerHTML = q.q;   // 1r: banc amb imatges
+  else setText('question-text', q.q);
 
   const grid = document.getElementById('options-grid');
   grid.innerHTML = '';
@@ -167,7 +176,7 @@ export function renderQuiz(q, onAnswerChosen, iniciarTimer) {
   opcionsConIdx.forEach(o => {
     const btn = document.createElement('button');
     btn.className = 'option-btn';
-    btn.textContent = o.txt;
+    if (q.html) btn.innerHTML = o.txt; else btn.textContent = o.txt;
     btn.dataset.original = o.original;
     btn.addEventListener('click', () => onAnswerChosen(o.original, btn));
     grid.appendChild(btn);

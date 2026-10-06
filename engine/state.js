@@ -6,8 +6,10 @@
 import { CONFIG } from '../data/config.js';
 import { INSTRUMENTS } from '../data/instruments.js';
 import { generarMapa } from './map-gen.js';
+import { CURS1 } from '../data/curs1.js';
+import { TEMES } from '../data/questions.js';
 
-const SAVE_KEY = 'pokeluthier-save-v3';
+const SAVE_KEY = 'pokeluthier-save-v3' + (CURS1 ? '_c1' : '');
 
 export let GameState = null;
 
@@ -28,7 +30,7 @@ export function nouEstat() {
       combatsGuanyats: 0,
       instrumentsTrencats: 0,
       nodesVisitats: 0,
-      perTema: { notes:{ok:0,ko:0}, alteracions:{ok:0,ko:0}, compassos:{ok:0,ko:0}, figures:{ok:0,ko:0}, instruments:{ok:0,ko:0} },
+      perTema: Object.fromEntries(TEMES.map(t => [t, { ok:0, ko:0 }])),
       questionsFallades: [],            // ids de preguntes que han fallat
       tempsResposta: []                 // segons per resposta (per estadístiques M3)
     },

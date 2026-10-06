@@ -6,6 +6,7 @@
 import { TUTORIAL } from '../data/tutorial.js';
 import { showView, setText } from './views.js';
 import { toast } from './toast.js';
+import { CURS1 } from '../data/curs1.js';
 
 let tutIdx = 0;
 let tutPasFet = false;
@@ -186,7 +187,9 @@ function renderAttackPickDemo(cont) {
 }
 
 function renderQuizDemo(cont) {
-  const q = { q: 'Quantes notes té l\'escala musical?', op: ['7', '5', '8', '12'], correcta: 0 };
+  const q = CURS1
+    ? { q: 'De quina família és el violí?', op: ['Corda', 'Vent', 'Percussió', 'Electrònics'], correcta: 0, ok: 'Correcte! El violí és de corda.', ko: 'El violí és de corda.' }
+    : { q: 'Quantes notes té l\'escala musical?', op: ['7', '5', '8', '12'], correcta: 0 };
   cont.innerHTML = `
     <div class="demo-quiz">
       <div class="demo-q-text">${q.q}</div>
@@ -204,8 +207,8 @@ function renderQuizDemo(cont) {
         if (j === q.correcta) x.classList.add('correct');
         else if (j === i) x.classList.add('wrong');
       });
-      if (i === q.correcta) toast('♯ Correcte! Do-Re-Mi-Fa-Sol-La-Si.', 'good', 2000);
-      else toast('♭ Era 7! Do-Re-Mi-Fa-Sol-La-Si.', 'bad', 2200);
+      if (i === q.correcta) toast(q.ok || '♯ Correcte! Do-Re-Mi-Fa-Sol-La-Si.', 'good', 2000);
+      else toast(q.ko || '♭ Era 7! Do-Re-Mi-Fa-Sol-La-Si.', 'bad', 2200);
       tutPasCompletat();
     };
     opGrid.appendChild(b);

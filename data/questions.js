@@ -5,7 +5,10 @@
 // Dificultat: 1 (fàcil, 15s) · 2 (mitjana, 11s) · 3 (difícil, 7s).
 // ============================================================================
 
-export const QUESTIONS = Object.freeze([
+import { CURS1, POOL_C1, TEMES_C1, NOMS_C1 } from './curs1.js';
+
+// En 1r (?curs=1) les preguntes surten del banc de timbre de 1r (data/curs1.js).
+export const QUESTIONS = CURS1 ? POOL_C1 : Object.freeze([
 
   // ═══════════════════════════════════════════════════════════════════════
   // NOTES MUSICALS (30 preguntes)
@@ -193,8 +196,8 @@ export function preguntesPerTema(tema) {
 export function preguntesPerDificultat(d) {
   return QUESTIONS.filter(p => p.dificultat === d);
 }
-export const TEMES = ['notes','alteracions','compassos','figures','instruments'];
-export const NOMS_TEMES = {
+export const TEMES = CURS1 ? TEMES_C1 : ['notes','alteracions','compassos','figures','instruments'];
+export const NOMS_TEMES = CURS1 ? NOMS_C1 : {
   notes: 'Notes musicals',
   alteracions: 'Alteracions',
   compassos: 'Compassos',

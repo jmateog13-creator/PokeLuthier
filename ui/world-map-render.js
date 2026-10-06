@@ -5,7 +5,7 @@
 
 import { GameState } from '../engine/state.js';
 import { ZONES, estatZonaPerJugador } from '../engine/map-gen.js';
-import { MEDALS } from '../data/medals.js';
+import { MEDALS, ORDRE_MEDALLES } from '../data/medals.js';
 import { BIOMES } from '../data/biomes.js';
 import { findTrainer } from '../data/trainers.js';
 import { showView, iconHtml } from './views.js';
@@ -20,8 +20,8 @@ export function obrirMapaMon() {
   header.className = 'worldmap-header';
   header.innerHTML = `
     <h2 class="worldmap-title">Camí del Conservatori</h2>
-    <p class="worldmap-sub">Les 6 zones del teu viatge cap a Mestre Luthier</p>
-    <div class="worldmap-prog">Medalles: <strong>${GameState.medalles.length}/5</strong></div>
+    <p class="worldmap-sub">Les ${ZONES.length} zones del teu viatge cap a Mestre Luthier</p>
+    <div class="worldmap-prog">Medalles: <strong>${GameState.medalles.length}/${ORDRE_MEDALLES.length}</strong></div>
   `;
   cont.appendChild(header);
 
